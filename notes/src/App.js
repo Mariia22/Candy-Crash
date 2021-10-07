@@ -1,9 +1,10 @@
-import logo from './logo.svg';
-import './App.css';
+import { WrapperStyle } from './WrapperStyle';
 
 function App() {
   return (
-    <h1>Мое приложение</h1>
+    <WrapperStyle>
+      <h1>Vjq ntecn</h1>
+    </WrapperStyle>
   );
 }
 
