@@ -12,7 +12,7 @@ function App() {
       <GlobalStyle />
       <WrapperStyle>
         <ToggleButton onChange={(event) => setTheme(event.target.checked)} />
-        <h1>Notes</h1>
+        <h1>Candy Crash</h1>
       </WrapperStyle>
     </ThemeProvider>
   );
