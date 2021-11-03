@@ -6,3 +6,14 @@ export const WrapperStyle = styled.div`
     color: ${props => props.color};
     background-color: ${props => props.color};
 `
+export const GameStyle = styled.div`
+    display: flex;
+    flex-wrap:wrap;
+    width: 640px; 
+    height: 640px;
+    margin:50px;
+`
+export const GameImg = styled.img`
+  width: 80px; 
+  height: 80px;
+`
