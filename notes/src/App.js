@@ -66,9 +66,15 @@ function App() {
 
   function replaceEmptyValues() {
     for (let i = 0; i < boardArray.length - width; i++) {
-      if (boardArray[i + width] === '') {
-        boardArray[i + width] = boardArray[i];
-        boardArray[i] = '';
+      const isFirstLine = [0, 1, 2, 3, 4, 5, 6, 7]
+      if (isFirstLine.includes(i) && (boardArray[i] === '')) {
+        boardArray[i] = colors[Math.floor(Math.random() * colors.length)];
+      }
+      else {
+        if (boardArray[i + width] === '') {
+          boardArray[i + width] = boardArray[i];
+          boardArray[i] = '';
+        }
       }
     }
   }
@@ -85,7 +91,7 @@ function App() {
       deleteThreeBlocksOnColumns();
       replaceEmptyValues();
       setBoard([...boardArray]);
-    }, 100)
+    }, 200)
     return () => clearInterval(timer);
   }, [deleteFourBlocksOnRow, deleteFourBlocksOnColumns, deleteThreeBlocksOnRow, deleteThreeBlocksOnColumns, replaceEmptyValues, boardArray])
 
