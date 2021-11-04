@@ -78,6 +78,15 @@ function App() {
       }
     }
   }
+  function dragStart() {
+    console.log("Start");
+  }
+  function dragDrop() {
+    console.log("Drop");
+  }
+  function dragEnd() {
+    console.log("End");
+  }
 
   useEffect(() => {
     fillBoard()
@@ -91,7 +100,7 @@ function App() {
       deleteThreeBlocksOnColumns();
       replaceEmptyValues();
       setBoard([...boardArray]);
-    }, 200)
+    }, 100)
     return () => clearInterval(timer);
   }, [deleteFourBlocksOnRow, deleteFourBlocksOnColumns, deleteThreeBlocksOnRow, deleteThreeBlocksOnColumns, replaceEmptyValues, boardArray])
 
@@ -103,7 +112,19 @@ function App() {
         <h1>Candy Crash</h1>
         <GameStyle>
           {boardArray.map((color, index) =>
-            <GameImg style={{ backgroundColor: color }} key={index} />)}
+            <GameImg style={{ backgroundColor: color }}
+              key={index}
+              alt={color}
+              data-id={index}
+              draggable={true}
+              onDragStart={dragStart}
+              onDragOver={e => e.preventDefault()}
+              onDragEnter={e => e.preventDefault()}
+              onDragLeave={e => e.preventDefault()}
+              onDrop={dragDrop}
+              onDragEnd={dragEnd}
+
+            />)}
         </GameStyle>
       </WrapperStyle>
     </ThemeProvider>
