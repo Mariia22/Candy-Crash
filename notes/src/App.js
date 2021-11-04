@@ -5,6 +5,7 @@ import { WrapperStyle, GameStyle, GameImg } from './WrapperStyle';
 import ToggleButton from './components/ToggleButton/ToggleButton';
 
 const width = 8;
+const colors = ['red', 'yellow', 'blue', 'purple', 'orange', 'green'];
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -13,7 +14,6 @@ function App() {
 
   function fillBoard() {
     const board = [];
-    const colors = ['red', 'yellow', 'blue', 'purple', 'orange', 'green'];
     for (let i = 0; i < width * width; i++) {
       board.push(colors[Math.floor(Math.random() * colors.length)]);
     }
@@ -64,6 +64,15 @@ function App() {
     }
   }
 
+  function replaceEmptyValues() {
+    for (let i = 0; i < boardArray.length - width; i++) {
+      if (boardArray[i + width] === '') {
+        boardArray[i + width] = boardArray[i];
+        boardArray[i] = '';
+      }
+    }
+  }
+
   useEffect(() => {
     fillBoard()
   }, [])
@@ -73,11 +82,12 @@ function App() {
       deleteFourBlocksOnRow();
       deleteFourBlocksOnColumns();
       deleteThreeBlocksOnRow();
-      deleteThreeBlocksOnColumns()
+      deleteThreeBlocksOnColumns();
+      replaceEmptyValues();
       setBoard([...boardArray]);
     }, 100)
     return () => clearInterval(timer);
-  }, [deleteFourBlocksOnRow, deleteFourBlocksOnColumns, deleteThreeBlocksOnRow, deleteThreeBlocksOnColumns, boardArray])
+  }, [deleteFourBlocksOnRow, deleteFourBlocksOnColumns, deleteThreeBlocksOnRow, deleteThreeBlocksOnColumns, replaceEmptyValues, boardArray])
 
   return (
     <ThemeProvider theme={theme === false ? lightTheme : darkTheme}>
