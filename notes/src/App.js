@@ -10,6 +10,8 @@ const colors = ['red', 'yellow', 'blue', 'purple', 'orange', 'green'];
 function App() {
   const [theme, setTheme] = useState(false);
   const [boardArray, setBoard] = useState([]);
+  const [replaceBlock, setReplaceBlock] = useState(null);
+  const [dropBlock, setDropBlock] = useState(null);
 
 
   function fillBoard() {
@@ -78,15 +80,22 @@ function App() {
       }
     }
   }
-  function dragStart() {
-    console.log("Start");
+
+  function dragStart(e) {
+    setDropBlock(e.target);
   }
-  function dragDrop() {
-    console.log("Drop");
+
+  function dragDrop(e) {
+    setReplaceBlock(e.target);
   }
+
   function dragEnd() {
-    console.log("End");
+    let dropBlockId = parseInt(dropBlock.getAttribute('data-id'));
+    let replaceBlockId = parseInt(replaceBlock.getAttribute('data-id'));
+    boardArray[dropBlockId] = replaceBlock.style.backgroundColor;
+    boardArray[replaceBlockId] = dropBlock.style.backgroundColor;
   }
+
 
   useEffect(() => {
     fillBoard()
