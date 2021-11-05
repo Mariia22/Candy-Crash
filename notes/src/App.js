@@ -92,8 +92,11 @@ function App() {
   function dragEnd() {
     let dropBlockId = parseInt(dropBlock.getAttribute('data-id'));
     let replaceBlockId = parseInt(replaceBlock.getAttribute('data-id'));
-    boardArray[dropBlockId] = replaceBlock.style.backgroundColor;
-    boardArray[replaceBlockId] = dropBlock.style.backgroundColor;
+    const valueMotion = [dropBlockId + 1, dropBlockId - 1, dropBlockId + width, dropBlockId - width];
+    if (valueMotion.includes(replaceBlockId)) {
+      boardArray[dropBlockId] = replaceBlock.style.backgroundColor;
+      boardArray[replaceBlockId] = dropBlock.style.backgroundColor;
+    }
   }
 
 
