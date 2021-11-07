@@ -3,6 +3,7 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, lightTheme, darkTheme } from './GlobalStyle';
 import { WrapperStyle, GameStyle, GameImg } from './WrapperStyle';
 import ToggleButton from './components/ToggleButton/ToggleButton';
+import ScoreDisplay from './score/ScoreDisplay';
 
 const width = 8;
 const colors = ['red', 'yellow', 'blue', 'purple', 'orange', 'green'];
@@ -12,6 +13,7 @@ function App() {
   const [boardArray, setBoard] = useState([]);
   const [replaceBlock, setReplaceBlock] = useState(null);
   const [dropBlock, setDropBlock] = useState(null);
+  const [score, setScore] = useState(0);
 
 
   function fillBoard() {
@@ -27,8 +29,10 @@ function App() {
     for (let i = 0; i < boardArray.length; i++) {
       const optionalArray = [i, i + 1, i + 2, i + 3];
       const color = boardArray[i];
+      const isBlank = boardArray[i] === '';
       if (exceptionForFour.includes(i)) continue;
-      if (optionalArray.every(index => boardArray[index] === color)) {
+      if (optionalArray.every(index => boardArray[index] === color) && !isBlank) {
+        setScore(score => score + 40);
         optionalArray.forEach(index => boardArray[index] = '');
         return true;
       }
@@ -40,8 +44,10 @@ function App() {
     for (let i = 0; i < boardArray.length; i++) {
       const optionalArray = [i, i + 1, i + 2];
       const color = boardArray[i];
+      const isBlank = boardArray[i] === '';
       if (exceptionForThree.includes(i)) continue;
-      if (optionalArray.every(index => boardArray[index] === color)) {
+      if (optionalArray.every(index => boardArray[index] === color) && !isBlank) {
+        setScore(score => score + 30);
         optionalArray.forEach(index => boardArray[index] = '');
         return true;
       }
@@ -52,7 +58,9 @@ function App() {
     for (let i = 0; i <= 47; i++) {
       const optionalArray = [i, i + width, i + 2 * width, i + 3 * width];
       const color = boardArray[i];
-      if (optionalArray.every(index => boardArray[index] === color)) {
+      const isBlank = boardArray[i] === '';
+      if (optionalArray.every(index => boardArray[index] === color) && !isBlank) {
+        setScore(score => score + 40);
         optionalArray.forEach(index => boardArray[index] = '');
         return true;
       }
@@ -63,7 +71,9 @@ function App() {
     for (let i = 0; i <= 53; i++) {
       const optionalArray = [i, i + width, i + 2 * width];
       const color = boardArray[i];
-      if (optionalArray.every(index => boardArray[index] === color)) {
+      const isBlank = boardArray[i] === '';
+      if (optionalArray.every(index => boardArray[index] === color) && !isBlank) {
+        setScore(score => score + 30);
         optionalArray.forEach(index => boardArray[index] = '');
         return true;
       }
@@ -107,7 +117,7 @@ function App() {
     const isCheckThreeColumns = checkThreeBlocksOnColumns();
     if (isCheckThreeRows || isCheckFourRows || isCheckFourColumns || isCheckThreeColumns) {
       setReplaceBlock(null);
-      setDropBlock(null)
+      setDropBlock(null);
     }
     else {
       boardArray[dropBlockId] = dropBlock.style.backgroundColor;
@@ -150,9 +160,9 @@ function App() {
               onDragLeave={e => e.preventDefault()}
               onDrop={dragDrop}
               onDragEnd={dragEnd}
-
             />)}
         </GameStyle>
+        <ScoreDisplay score={score} />
       </WrapperStyle>
     </ThemeProvider>
   );
