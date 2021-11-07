@@ -3,7 +3,8 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, lightTheme, darkTheme } from './GlobalStyle';
 import { WrapperStyle, GameStyle, GameImg } from './WrapperStyle';
 import ToggleButton from './components/ToggleButton/ToggleButton';
-import ScoreDisplay from './score/ScoreDisplay';
+import ScoreDisplay from './Score/ScoreDisplay';
+import LivesDisplay from './Lives/LivesDisplay';
 
 const width = 8;
 const colors = ['red', 'yellow', 'blue', 'purple', 'orange', 'green'];
@@ -14,6 +15,7 @@ function App() {
   const [replaceBlock, setReplaceBlock] = useState(null);
   const [dropBlock, setDropBlock] = useState(null);
   const [score, setScore] = useState(0);
+  const [lives, setLives] = useState(20);
 
 
   function fillBoard() {
@@ -22,6 +24,10 @@ function App() {
       board.push(colors[Math.floor(Math.random() * colors.length)]);
     }
     setBoard(board)
+  }
+
+  function endGame() {
+    alert("End Game")
   }
 
   function checkFourBlocksOnRow() {
@@ -116,6 +122,10 @@ function App() {
     const isCheckThreeRows = checkThreeBlocksOnRow();
     const isCheckThreeColumns = checkThreeBlocksOnColumns();
     if (isCheckThreeRows || isCheckFourRows || isCheckFourColumns || isCheckThreeColumns) {
+      if (lives === 0) {
+        endGame();
+      }
+      setLives(lives => lives - 1);
       setReplaceBlock(null);
       setDropBlock(null);
     }
@@ -163,6 +173,7 @@ function App() {
             />)}
         </GameStyle>
         <ScoreDisplay score={score} />
+        <LivesDisplay lives={lives} />
       </WrapperStyle>
     </ThemeProvider>
   );
