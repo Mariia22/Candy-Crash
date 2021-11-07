@@ -6,7 +6,6 @@ import ToggleButton from './components/ToggleButton/ToggleButton';
 
 const width = 8;
 const colors = ['red', 'yellow', 'blue', 'purple', 'orange', 'green'];
-let isChecked;
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -23,51 +22,52 @@ function App() {
     setBoard(board)
   }
 
-  function deleteRepeateBlocks(optionalArray, color) {
-    if (optionalArray.every(index => boardArray[index] === color)) {
-      optionalArray.forEach(index => boardArray[index] = '');
-      isChecked = true;
-    }
-  }
-
   function checkFourBlocksOnRow() {
-    isChecked = false;
     const exceptionForFour = [5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55, 61, 62, 63];
     for (let i = 0; i < boardArray.length; i++) {
       const optionalArray = [i, i + 1, i + 2, i + 3];
+      const color = boardArray[i];
       if (exceptionForFour.includes(i)) continue;
-      deleteRepeateBlocks(optionalArray, boardArray[i]);
+      if (optionalArray.every(index => boardArray[index] === color)) {
+        optionalArray.forEach(index => boardArray[index] = '');
+        return true;
+      }
     }
-    return isChecked;
   }
 
   function checkThreeBlocksOnRow() {
-    isChecked = false;
     const exceptionForThree = [6, 7, 14, 15, 22, 23, 30, 31, 38, 39, 46, 47, 54, 55, 62, 63];
     for (let i = 0; i < boardArray.length; i++) {
       const optionalArray = [i, i + 1, i + 2];
+      const color = boardArray[i];
       if (exceptionForThree.includes(i)) continue;
-      deleteRepeateBlocks(optionalArray, boardArray[i]);
+      if (optionalArray.every(index => boardArray[index] === color)) {
+        optionalArray.forEach(index => boardArray[index] = '');
+        return true;
+      }
     }
-    return isChecked;
   }
 
   function checkFourBlocksOnColumns() {
-    isChecked = false;
     for (let i = 0; i <= 47; i++) {
       const optionalArray = [i, i + width, i + 2 * width, i + 3 * width];
-      deleteRepeateBlocks(optionalArray, boardArray[i])
+      const color = boardArray[i];
+      if (optionalArray.every(index => boardArray[index] === color)) {
+        optionalArray.forEach(index => boardArray[index] = '');
+        return true;
+      }
     }
-    return isChecked;
   }
 
   function checkThreeBlocksOnColumns() {
-    isChecked = false;
     for (let i = 0; i <= 53; i++) {
       const optionalArray = [i, i + width, i + 2 * width];
-      deleteRepeateBlocks(optionalArray, boardArray[i])
+      const color = boardArray[i];
+      if (optionalArray.every(index => boardArray[index] === color)) {
+        optionalArray.forEach(index => boardArray[index] = '');
+        return true;
+      }
     }
-    return isChecked;
   }
 
   function replaceEmptyValues() {
@@ -96,16 +96,16 @@ function App() {
   function dragEnd() {
     let dropBlockId = parseInt(dropBlock.getAttribute('data-id'));
     let replaceBlockId = parseInt(replaceBlock.getAttribute('data-id'));
-    boardArray[dropBlockId] = replaceBlock.style.backgroundColor;
-    boardArray[replaceBlockId] = dropBlock.style.backgroundColor;
     const valueMotion = [dropBlockId + 1, dropBlockId - 1, dropBlockId + width, dropBlockId - width];
-    const isCheckThreeRows = checkThreeBlocksOnRow();
+    if (dropBlockId && valueMotion.includes(replaceBlockId)) {
+      boardArray[dropBlockId] = replaceBlock.style.backgroundColor;
+      boardArray[replaceBlockId] = dropBlock.style.backgroundColor;
+    }
     const isCheckFourRows = checkFourBlocksOnRow();
     const isCheckFourColumns = checkFourBlocksOnColumns();
-    const isCheckThreeColumns = checkThreeBlocksOnColumns()
-    if (dropBlockId &&
-      (isCheckThreeRows || isCheckFourRows || isCheckFourColumns || isCheckThreeColumns)
-      && valueMotion.includes(replaceBlockId)) {
+    const isCheckThreeRows = checkThreeBlocksOnRow();
+    const isCheckThreeColumns = checkThreeBlocksOnColumns();
+    if (isCheckThreeRows || isCheckFourRows || isCheckFourColumns || isCheckThreeColumns) {
       setReplaceBlock(null);
       setDropBlock(null)
     }
