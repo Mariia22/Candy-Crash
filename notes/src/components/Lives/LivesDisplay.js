@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { LivesDisplayStyle, LivesDisplayTextStyle } from './LivesDisplayStyle';
 
 const LivesDisplay = ({ lives }) => {
   return (
-    <div>
-      {lives}
-    </div>
+    <LivesDisplayStyle>
+      <LivesDisplayTextStyle>Lives: {lives}</LivesDisplayTextStyle>
+    </LivesDisplayStyle>
   )
 }
 

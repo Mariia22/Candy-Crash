@@ -23,13 +23,13 @@ img{
 }
 `
 export const lightTheme = {
-  body: '#FFFFFF',
-  color: 'black',
+  body: '#ffffff',
+  color: '#fe4566',
   backgroundImg: lightBackImage,
 };
 
 export const darkTheme = {
-  color: '#FFFFFF',
-  body: 'black',
+  color: '#ffffff',
+  body: 'fe4566',
   backgroundImg: darkBackImage,
 }

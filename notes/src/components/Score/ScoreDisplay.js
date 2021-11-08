@@ -1,10 +1,11 @@
-import React from 'react'
+import React from 'react';
+import { ScoreDisplayStyle, ScoreDisplayStyleText } from './ScoreDisplayStyle';
 
 const ScoreDisplay = ({ score }) => {
   return (
-    <div>
-      {score}
-    </div>
+    <ScoreDisplayStyle>
+      <ScoreDisplayStyleText>Score: {score}</ScoreDisplayStyleText>
+    </ScoreDisplayStyle>
   )
 }
 

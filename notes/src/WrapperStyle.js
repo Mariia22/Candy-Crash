@@ -2,13 +2,20 @@ import styled from 'styled-components';
 
 export const WrapperStyle = styled.div`
     display: flex;
-    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
     color: ${props => props.color};
     background-color: ${props => props.color};
-`
+`;
+
+export const WrapperGame = styled.div`
+    display: flex;
+    flex-direction: column;
+`;
+
 export const HeaderStyle = styled.div`
 display: flex;
-justify-content: space-between;
+justify-content: space-around;
 align-items: center;
 margin: 0.5rem 2rem 0.5rem 2rem;
 `;
@@ -21,9 +28,15 @@ export const GameStyle = styled.div`
     margin:40px;
     background-color: #ffffff;
     padding: 0.1rem;
-`
+`;
 export const GameImg = styled.img`
   width: 70px; 
   height: 70px;
   border: 1px solid green;
-`
+`;
+
+export const WrapperDisplay = styled.div`
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+`;

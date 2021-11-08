@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, lightTheme, darkTheme } from './GlobalStyle';
-import { WrapperStyle, HeaderStyle, GameStyle, GameImg } from './WrapperStyle';
+import { WrapperStyle, WrapperDisplay, WrapperGame, HeaderStyle, GameStyle, GameImg } from './WrapperStyle';
 import Logo from './images/logo.png';
 import Empty from './images/empty.png';
 import Fox from './images/fox.png';
@@ -162,28 +162,32 @@ function App() {
   return (
     <ThemeProvider theme={theme === false ? lightTheme : darkTheme}>
       <GlobalStyle />
+      <HeaderStyle>
+        <img src={Logo} width="200px" height="100px" />
+        <ToggleButton onChange={(event) => setTheme(event.target.checked)} />
+      </HeaderStyle>
       <WrapperStyle>
-        <HeaderStyle>
-          <img src={Logo} width="200px" height="100px" />
-          <ToggleButton onChange={(event) => setTheme(event.target.checked)} />
-        </HeaderStyle>
-        <GameStyle>
-          {boardArray.map((color, index) =>
-            <GameImg src={color}
-              key={index}
-              alt={color}
-              data-id={index}
-              draggable={true}
-              onDragStart={dragStart}
-              onDragOver={e => e.preventDefault()}
-              onDragEnter={e => e.preventDefault()}
-              onDragLeave={e => e.preventDefault()}
-              onDrop={dragDrop}
-              onDragEnd={dragEnd}
-            />)}
-        </GameStyle>
-        <ScoreDisplay score={score} />
-        <LivesDisplay lives={lives} />
+        <WrapperGame>
+          <GameStyle>
+            {boardArray.map((color, index) =>
+              <GameImg src={color}
+                key={index}
+                alt={color}
+                data-id={index}
+                draggable={true}
+                onDragStart={dragStart}
+                onDragOver={e => e.preventDefault()}
+                onDragEnter={e => e.preventDefault()}
+                onDragLeave={e => e.preventDefault()}
+                onDrop={dragDrop}
+                onDragEnd={dragEnd}
+              />)}
+          </GameStyle>
+        </WrapperGame>
+        <WrapperDisplay>
+          <ScoreDisplay score={score} />
+          <LivesDisplay lives={lives} />
+        </WrapperDisplay>
       </WrapperStyle>
     </ThemeProvider>
   );
