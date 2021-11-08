@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, lightTheme, darkTheme } from './GlobalStyle';
-import { WrapperStyle, GameStyle, GameImg } from './WrapperStyle';
+import { WrapperStyle, HeaderStyle, GameStyle, GameImg } from './WrapperStyle';
+import Logo from './images/logo.png';
 import ToggleButton from './components/ToggleButton/ToggleButton';
-import ScoreDisplay from './Score/ScoreDisplay';
-import LivesDisplay from './Lives/LivesDisplay';
+import ScoreDisplay from './components/Score/ScoreDisplay';
+import LivesDisplay from './components/Lives/LivesDisplay';
 
 const width = 8;
 const colors = ['red', 'yellow', 'blue', 'purple', 'orange', 'green'];
@@ -155,8 +156,10 @@ function App() {
     <ThemeProvider theme={theme === false ? lightTheme : darkTheme}>
       <GlobalStyle />
       <WrapperStyle>
-        <ToggleButton onChange={(event) => setTheme(event.target.checked)} />
-        <h1>Candy Crash</h1>
+        <HeaderStyle>
+          <img src={Logo} width="200px" height="100px" />
+          <ToggleButton onChange={(event) => setTheme(event.target.checked)} />
+        </HeaderStyle>
         <GameStyle>
           {boardArray.map((color, index) =>
             <GameImg style={{ backgroundColor: color }}

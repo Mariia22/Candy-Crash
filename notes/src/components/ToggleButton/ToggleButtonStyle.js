@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const ToggleLabelStyle = styled.label`
     position: relative;
+    margin: 1rem;
 `;
 
 export const ToggleInput = styled.input`
@@ -10,7 +11,7 @@ export const ToggleInput = styled.input`
     top: -9999px;
 
     &:checked + span{
-        background-color: #1890ff;
+        background-color: #9f6fb1;
 
         &:before{
             left: calc(100%-5px);
@@ -32,7 +33,7 @@ export const ToggleSpan = styled.span`
     width: 50px;
     height: 25px;
     border-radius: 100px;
-    background-color: #bfbfbf;
+    background-color: #9cd6fe;
     transition: background-color 0.2s, box-shadow 0.2s;
    &:before{
         position: absolute;
