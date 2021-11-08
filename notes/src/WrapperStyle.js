@@ -16,11 +16,14 @@ margin: 0.5rem 2rem 0.5rem 2rem;
 export const GameStyle = styled.div`
     display: flex;
     flex-wrap:wrap;
-    width: 560px; 
-    height: 560px;
+    width: 565px; 
+    height: 580px;
     margin:40px;
+    background-color: #ffffff;
+    padding: 0.1rem;
 `
 export const GameImg = styled.img`
   width: 70px; 
   height: 70px;
+  border: 1px solid green;
 `

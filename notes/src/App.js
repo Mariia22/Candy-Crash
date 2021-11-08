@@ -3,12 +3,19 @@ import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, lightTheme, darkTheme } from './GlobalStyle';
 import { WrapperStyle, HeaderStyle, GameStyle, GameImg } from './WrapperStyle';
 import Logo from './images/logo.png';
+import Empty from './images/empty.png';
+import Fox from './images/fox.png';
+import Hippo from './images/hippo.png';
+import Crab from './images/crab.png';
+import Frog from './images/frog.png';
+import Rabbit from './images/rabbit.png';
+import Penguin from './images/penguin.png';
 import ToggleButton from './components/ToggleButton/ToggleButton';
 import ScoreDisplay from './components/Score/ScoreDisplay';
 import LivesDisplay from './components/Lives/LivesDisplay';
 
 const width = 8;
-const colors = ['red', 'yellow', 'blue', 'purple', 'orange', 'green'];
+const colors = [Fox, Hippo, Crab, Frog, Rabbit, Penguin];
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -24,7 +31,7 @@ function App() {
     for (let i = 0; i < width * width; i++) {
       board.push(colors[Math.floor(Math.random() * colors.length)]);
     }
-    setBoard(board)
+    setBoard(board);
   }
 
   function endGame() {
@@ -36,11 +43,11 @@ function App() {
     for (let i = 0; i < boardArray.length; i++) {
       const optionalArray = [i, i + 1, i + 2, i + 3];
       const color = boardArray[i];
-      const isBlank = boardArray[i] === '';
+      const isBlank = boardArray[i] === Empty;
       if (exceptionForFour.includes(i)) continue;
       if (optionalArray.every(index => boardArray[index] === color) && !isBlank) {
         setScore(score => score + 40);
-        optionalArray.forEach(index => boardArray[index] = '');
+        optionalArray.forEach(index => boardArray[index] = Empty);
         return true;
       }
     }
@@ -51,11 +58,11 @@ function App() {
     for (let i = 0; i < boardArray.length; i++) {
       const optionalArray = [i, i + 1, i + 2];
       const color = boardArray[i];
-      const isBlank = boardArray[i] === '';
+      const isBlank = boardArray[i] === Empty;
       if (exceptionForThree.includes(i)) continue;
       if (optionalArray.every(index => boardArray[index] === color) && !isBlank) {
         setScore(score => score + 30);
-        optionalArray.forEach(index => boardArray[index] = '');
+        optionalArray.forEach(index => boardArray[index] = Empty);
         return true;
       }
     }
@@ -65,10 +72,10 @@ function App() {
     for (let i = 0; i <= 47; i++) {
       const optionalArray = [i, i + width, i + 2 * width, i + 3 * width];
       const color = boardArray[i];
-      const isBlank = boardArray[i] === '';
+      const isBlank = boardArray[i] === Empty;
       if (optionalArray.every(index => boardArray[index] === color) && !isBlank) {
         setScore(score => score + 40);
-        optionalArray.forEach(index => boardArray[index] = '');
+        optionalArray.forEach(index => boardArray[index] = Empty);
         return true;
       }
     }
@@ -78,10 +85,10 @@ function App() {
     for (let i = 0; i <= 53; i++) {
       const optionalArray = [i, i + width, i + 2 * width];
       const color = boardArray[i];
-      const isBlank = boardArray[i] === '';
+      const isBlank = boardArray[i] === Empty;
       if (optionalArray.every(index => boardArray[index] === color) && !isBlank) {
         setScore(score => score + 30);
-        optionalArray.forEach(index => boardArray[index] = '');
+        optionalArray.forEach(index => boardArray[index] = Empty);
         return true;
       }
     }
@@ -90,13 +97,13 @@ function App() {
   function replaceEmptyValues() {
     for (let i = 0; i < boardArray.length - width; i++) {
       const isFirstLine = [0, 1, 2, 3, 4, 5, 6, 7]
-      if (isFirstLine.includes(i) && (boardArray[i] === '')) {
+      if (isFirstLine.includes(i) && (boardArray[i] === Empty)) {
         boardArray[i] = colors[Math.floor(Math.random() * colors.length)];
       }
       else {
-        if (boardArray[i + width] === '') {
+        if (boardArray[i + width] === Empty) {
           boardArray[i + width] = boardArray[i];
-          boardArray[i] = '';
+          boardArray[i] = Empty;
         }
       }
     }
@@ -115,8 +122,8 @@ function App() {
     let replaceBlockId = parseInt(replaceBlock.getAttribute('data-id'));
     const valueMotion = [dropBlockId + 1, dropBlockId - 1, dropBlockId + width, dropBlockId - width];
     if (dropBlockId && valueMotion.includes(replaceBlockId)) {
-      boardArray[dropBlockId] = replaceBlock.style.backgroundColor;
-      boardArray[replaceBlockId] = dropBlock.style.backgroundColor;
+      boardArray[dropBlockId] = replaceBlock.getAttribute('src');
+      boardArray[replaceBlockId] = dropBlock.getAttribute('src');
     }
     const isCheckFourRows = checkFourBlocksOnRow();
     const isCheckFourColumns = checkFourBlocksOnColumns();
@@ -131,8 +138,8 @@ function App() {
       setDropBlock(null);
     }
     else {
-      boardArray[dropBlockId] = dropBlock.style.backgroundColor;
-      boardArray[replaceBlockId] = replaceBlock.style.backgroundColor;
+      boardArray[dropBlockId] = dropBlock.getAttribute('src');
+      boardArray[replaceBlockId] = replaceBlock.getAttribute('src');
     }
   }
 
@@ -162,7 +169,7 @@ function App() {
         </HeaderStyle>
         <GameStyle>
           {boardArray.map((color, index) =>
-            <GameImg style={{ backgroundColor: color }}
+            <GameImg src={color}
               key={index}
               alt={color}
               data-id={index}
