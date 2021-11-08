@@ -13,6 +13,7 @@ import Penguin from './images/penguin.png';
 import ToggleButton from './components/ToggleButton/ToggleButton';
 import ScoreDisplay from './components/Score/ScoreDisplay';
 import LivesDisplay from './components/Lives/LivesDisplay';
+import GameOverDisplay from './components/GameOver/GameOverDisplay';
 
 const width = 8;
 const colors = [Fox, Hippo, Crab, Frog, Rabbit, Penguin];
@@ -23,7 +24,7 @@ function App() {
   const [replaceBlock, setReplaceBlock] = useState(null);
   const [dropBlock, setDropBlock] = useState(null);
   const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(20);
+  const [lives, setLives] = useState(2);
 
 
   function fillBoard() {
@@ -33,9 +34,10 @@ function App() {
     }
     setBoard(board);
   }
-
-  function endGame() {
-    alert("End Game")
+  function startGame() {
+    fillBoard();
+    setScore(0);
+    setLives(2);
   }
 
   function checkFourBlocksOnRow() {
@@ -130,12 +132,9 @@ function App() {
     const isCheckThreeRows = checkThreeBlocksOnRow();
     const isCheckThreeColumns = checkThreeBlocksOnColumns();
     if (isCheckThreeRows || isCheckFourRows || isCheckFourColumns || isCheckThreeColumns) {
-      if (lives === 0) {
-        endGame();
-      }
-      setLives(lives => lives - 1);
       setReplaceBlock(null);
       setDropBlock(null);
+      setLives(lives => lives - 1);
     }
     else {
       boardArray[dropBlockId] = dropBlock.getAttribute('src');
@@ -144,7 +143,7 @@ function App() {
   }
 
   useEffect(() => {
-    fillBoard()
+    startGame()
   }, [])
 
   useEffect(() => {
@@ -168,21 +167,25 @@ function App() {
       </HeaderStyle>
       <WrapperStyle>
         <WrapperGame>
-          <GameStyle>
-            {boardArray.map((color, index) =>
-              <GameImg src={color}
-                key={index}
-                alt={color}
-                data-id={index}
-                draggable={true}
-                onDragStart={dragStart}
-                onDragOver={e => e.preventDefault()}
-                onDragEnter={e => e.preventDefault()}
-                onDragLeave={e => e.preventDefault()}
-                onDrop={dragDrop}
-                onDragEnd={dragEnd}
-              />)}
-          </GameStyle>
+          {lives === 0 ? <GameOverDisplay score={score} startGame={startGame} /> : (
+            <>
+              <GameStyle>
+                {boardArray.map((color, index) =>
+                  <GameImg src={color}
+                    key={index}
+                    alt={color}
+                    data-id={index}
+                    draggable={true}
+                    onDragStart={dragStart}
+                    onDragOver={e => e.preventDefault()}
+                    onDragEnter={e => e.preventDefault()}
+                    onDragLeave={e => e.preventDefault()}
+                    onDrop={dragDrop}
+                    onDragEnd={dragEnd}
+                  />)}
+              </GameStyle>
+            </>
+          )}
         </WrapperGame>
         <WrapperDisplay>
           <ScoreDisplay score={score} />

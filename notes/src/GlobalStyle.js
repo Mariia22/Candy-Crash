@@ -15,7 +15,7 @@ body{
     background-image: url(${props => props.theme.backgroundImg});
     background-repeat: no-repeat;
     background-size: cover;
-    color: ${props => props.theme.color}
+    color: ${props => props.theme.color};
 }
 img{
   margin:0;
@@ -24,12 +24,12 @@ img{
 `
 export const lightTheme = {
   body: '#ffffff',
-  color: '#fe4566',
+  color: '#edfaff',
   backgroundImg: lightBackImage,
 };
 
 export const darkTheme = {
   color: '#ffffff',
-  body: 'fe4566',
+  body: '#fe4566',
   backgroundImg: darkBackImage,
 }
