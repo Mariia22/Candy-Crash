@@ -1,22 +1,21 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from 'styled-components';
 import { GlobalStyle, lightTheme, darkTheme } from './GlobalStyle';
-import { WrapperStyle, WrapperDisplay, WrapperGame, HeaderStyle, GameStyle, GameImg } from './WrapperStyle';
-import Logo from './images/logo.png';
+import { WrapperStyle, WrapperDisplay, WrapperGame, HeaderStyle, HeaderSign, HeaderText, GameStyle, GameImg } from './WrapperStyle';
 import Empty from './images/empty.png';
-import Fox from './images/fox.png';
-import Hippo from './images/hippo.png';
-import Crab from './images/crab.png';
-import Frog from './images/frog.png';
-import Rabbit from './images/rabbit.png';
-import Penguin from './images/penguin.png';
+import Candy from './images/candy.png';
+import Candy6 from './images/candy6.png';
+import Candy2 from './images/candy2.png';
+import Candy3 from './images/candy3.png';
+import Candy4 from './images/candy4.png';
+import Candy5 from './images/candy5.png';
 import ToggleButton from './components/ToggleButton/ToggleButton';
 import ScoreDisplay from './components/Score/ScoreDisplay';
 import LivesDisplay from './components/Lives/LivesDisplay';
 import GameOverDisplay from './components/GameOver/GameOverDisplay';
 
 const width = 8;
-const colors = [Fox, Hippo, Crab, Frog, Rabbit, Penguin];
+const colors = [Candy, Candy2, Candy3, Candy4, Candy5, Candy6];
 
 function App() {
   const [theme, setTheme] = useState(false);
@@ -24,7 +23,7 @@ function App() {
   const [replaceBlock, setReplaceBlock] = useState(null);
   const [dropBlock, setDropBlock] = useState(null);
   const [score, setScore] = useState(0);
-  const [lives, setLives] = useState(2);
+  const [lives, setLives] = useState(20);
 
 
   function fillBoard() {
@@ -162,7 +161,11 @@ function App() {
     <ThemeProvider theme={theme === false ? lightTheme : darkTheme}>
       <GlobalStyle />
       <HeaderStyle>
-        <img src={Logo} width="200px" height="100px" />
+        <HeaderSign>
+          <img src={Candy2} width='50px' height='50px' />
+          <HeaderText>CANDY CRASH</HeaderText>
+          <img src={Candy} width='50px' height='50px' />
+        </HeaderSign>
         <ToggleButton onChange={(event) => setTheme(event.target.checked)} />
       </HeaderStyle>
       <WrapperStyle>

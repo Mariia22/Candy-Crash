@@ -11,12 +11,13 @@ export const GlobalStyle = createGlobalStyle`
 }
 body{
   font-size: 20px;
-    background-color: ${props => props.theme.body} ;
+    background-color: ${props => props.theme.body};
     background-image: url(${props => props.theme.backgroundImg});
     background-repeat: no-repeat;
     background-size: cover;
     color: ${props => props.theme.color};
 }
+
 img{
   margin:0;
   padding:0;

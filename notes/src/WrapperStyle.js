@@ -17,7 +17,18 @@ export const HeaderStyle = styled.div`
 display: flex;
 justify-content: space-around;
 align-items: center;
-margin: 0.5rem 2rem 0.5rem 2rem;
+margin: 3rem 2rem 0.5rem 2rem;
+`;
+
+export const HeaderSign = styled.div`
+  display: flex;
+  justify-content: space-around;
+`;
+
+export const HeaderText = styled.div`
+ margin: 0 20px;
+ font-weight: bold;
+ font-size: 2.8rem;
 `;
 
 export const GameStyle = styled.div`
