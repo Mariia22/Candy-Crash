@@ -36,7 +36,7 @@ function App() {
   function startGame() {
     fillBoard();
     setScore(0);
-    setLives(2);
+    setLives(20);
   }
 
   function checkFourBlocksOnRow() {
